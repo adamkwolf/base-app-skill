@@ -27,6 +27,14 @@ PRIVATE_KEY=0x1234...
 - Must be exactly 66 characters (0x + 64 hex chars)
 - Example: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
 
+### "ZORA_API_KEY environment variable is required"
+
+**Cause:** Zora API key not set.
+
+**Solution:**
+1. Get an API key at https://zora.co/developers
+2. Set it: `export ZORA_API_KEY=your_api_key`
+
 ## Wallet Errors
 
 ### "Insufficient ETH balance for gas fees"
