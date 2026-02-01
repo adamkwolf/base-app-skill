@@ -34,3 +34,6 @@ coverage/
 # Misc
 *.tgz
 .cache/
+
+# Zora coins registry (contains user-specific data)
+coins-registry.json

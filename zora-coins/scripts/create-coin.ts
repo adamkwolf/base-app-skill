@@ -71,9 +71,11 @@ function saveRegistry(registry: { coins: any[] }): void {
 // Validate environment
 function validateEnv(): {
   privateKey: `0x${string}`;
+  apiKey: string;
   referrer?: `0x${string}`;
 } {
   const privateKey = process.env.PRIVATE_KEY;
+  const apiKey = process.env.ZORA_API_KEY;
   const referrer = process.env.PLATFORM_REFERRER;
 
   if (!privateKey) {
@@ -92,8 +94,15 @@ function validateEnv(): {
     process.exit(1);
   }
 
+  if (!apiKey) {
+    console.error("Error: ZORA_API_KEY environment variable is required");
+    console.error("Get your API key at: https://zora.co/developers");
+    process.exit(1);
+  }
+
   return {
     privateKey: privateKey as `0x${string}`,
+    apiKey,
     referrer: referrer as `0x${string}` | undefined,
   };
 }
@@ -162,6 +171,7 @@ async function main() {
     description: args.description || args.name,
     imagePath: args.image,
     creatorAddress: account.address,
+    apiKey: env.apiKey,
   });
   console.log(`✅ Metadata URI: ${uploadResult.metadataUri}`);
 

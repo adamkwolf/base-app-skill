@@ -22,12 +22,13 @@ Before using, ensure these environment variables are set:
 ```bash
 # Required
 PRIVATE_KEY=0x...        # Wallet private key (with 0x prefix)
+ZORA_API_KEY=...         # Zora SDK API key for uploads
 
 # Optional
 PLATFORM_REFERRER=0x...  # Referrer address (receives 20% of fees)
 ```
 
-The SDK handles authentication using your wallet address (no separate API key needed).
+Get a Zora API key at: https://zora.co/developers
 
 ## Usage Examples
 

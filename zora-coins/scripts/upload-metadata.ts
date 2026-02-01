@@ -1,6 +1,7 @@
 import {
   createMetadataBuilder,
   createZoraUploaderForCreator,
+  setApiKey,
 } from "@zoralabs/coins-sdk";
 import { readFileSync, existsSync } from "fs";
 import { basename } from "path";
@@ -12,6 +13,7 @@ interface MetadataParams {
   description: string;
   imagePath: string;
   creatorAddress: Address;
+  apiKey: string;
 }
 
 // Get MIME type from file extension
@@ -44,12 +46,15 @@ export async function uploadMetadata(params: MetadataParams): Promise<{
     metadata: { type: "RAW_URI"; uri: string };
   };
 }> {
-  const { name, symbol, description, imagePath, creatorAddress } = params;
+  const { name, symbol, description, imagePath, creatorAddress, apiKey } = params;
 
   // Validate image exists
   if (!existsSync(imagePath)) {
     throw new Error(`Image file not found: ${imagePath}`);
   }
+
+  // Set API key for SDK
+  setApiKey(apiKey);
 
   // Create uploader using SDK's Zora provider
   const uploader = createZoraUploaderForCreator(creatorAddress);
