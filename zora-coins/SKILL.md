@@ -49,6 +49,7 @@ The SDK handles authentication using your wallet address (no separate API key ne
 
 Parse the user's request to identify:
 - **Name** (required): The coin/post title
+- **Symbol** (required): Token ticker symbol (max 6 chars, e.g., "SUNSET", "GM", "VIBES"). Choose something catchy and relevant to the post.
 - **Image** (required): Path to local image file (jpg, png, gif, webp)
 - **Description** (optional): Text description for the post
 - **Preview** (optional): Whether to show predicted address before signing
@@ -60,6 +61,7 @@ Run the creation script:
 ```bash
 cd zora-coins && npm run create -- \
   --name "Post Title" \
+  --symbol "SYMBOL" \
   --image "/path/to/image.jpg" \
   --description "Optional description" \
   --preview  # Optional: show address before signing
@@ -75,7 +77,7 @@ cd zora-coins && npm run create -- \
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `create-coin.ts` | Create a new coin | `npm run create -- --name "..." --image "..."` |
+| `create-coin.ts` | Create a new coin | `npm run create -- --name "..." --symbol "..." --image "..."` |
 | `upload-metadata.ts` | Upload image to IPFS | `npm run upload -- --image "..."` |
 | `list-coins.ts` | Show created coins | `npm run list` |
 
@@ -87,7 +89,7 @@ cd zora-coins && npm run create -- \
 | Currency | ZORA token | Fixed |
 | Market cap | LOW | Default tier |
 | Category | "social" | Base App standard |
-| Symbol | Auto-generated | From first letters of name |
+| Symbol | Agent-chosen | Max 6 chars, catchy and relevant |
 | Owners | Creator wallet | From PRIVATE_KEY |
 
 ## References

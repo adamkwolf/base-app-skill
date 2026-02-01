@@ -17,6 +17,7 @@ const REGISTRY_PATH = join(__dirname, "..", "coins-registry.json");
 // Parse command line arguments
 function parseArgs(): {
   name: string;
+  symbol: string;
   image: string;
   description?: string;
   preview?: boolean;
@@ -27,6 +28,8 @@ function parseArgs(): {
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--name" && args[i + 1]) {
       result.name = args[++i];
+    } else if (args[i] === "--symbol" && args[i + 1]) {
+      result.symbol = args[++i];
     } else if (args[i] === "--image" && args[i + 1]) {
       result.image = args[++i];
     } else if (args[i] === "--description" && args[i + 1]) {
@@ -36,32 +39,20 @@ function parseArgs(): {
     }
   }
 
-  if (!result.name || !result.image) {
+  if (!result.name || !result.symbol || !result.image) {
     console.error(
-      'Usage: npm run create -- --name "Post Title" --image "/path/to/image" [--description "..."] [--preview]'
+      'Usage: npm run create -- --name "Post Title" --symbol "SYMBOL" --image "/path/to/image" [--description "..."] [--preview]'
     );
     process.exit(1);
   }
 
   return result as {
     name: string;
+    symbol: string;
     image: string;
     description?: string;
     preview?: boolean;
   };
-}
-
-// Generate symbol from name (first letter of each word, max 6 chars)
-function generateSymbol(name: string): string {
-  const words = name.trim().split(/\s+/);
-  if (words.length === 1) {
-    return words[0].substring(0, 4).toUpperCase();
-  }
-  return words
-    .map((w) => w[0])
-    .join("")
-    .substring(0, 6)
-    .toUpperCase();
 }
 
 // Load or initialize registry
@@ -133,8 +124,8 @@ async function main() {
   // Validate image
   validateImage(args.image);
 
-  // Generate symbol
-  const symbol = generateSymbol(args.name);
+  // Use provided symbol (uppercase, max 6 chars)
+  const symbol = args.symbol.toUpperCase().substring(0, 6);
   console.log(`📝 Symbol: $${symbol}`);
 
   // Set up wallet
