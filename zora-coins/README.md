@@ -8,16 +8,35 @@ This skill lets you create tokenized social posts on Base mainnet via Zora. Simp
 
 ## Setup
 
-1. **Install dependencies:**
-   ```bash
-   cd zora-coins && npm install
-   ```
+Add the skill to your `openclaw.json`:
 
-2. **Set environment variables:**
-   ```bash
-   export PRIVATE_KEY=0x...        # Your wallet private key (with 0x prefix)
-   export PLATFORM_REFERRER=0x...  # Optional: referrer address for fee rewards
-   ```
+```json
+{
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "zora-coins": {
+        "enabled": true,
+        "env": {
+          "PRIVATE_KEY": "0x...",
+          "ZORA_API_KEY": "your_api_key",
+          "PLATFORM_REFERRER": "0x..."
+        }
+      }
+    }
+  }
+}
+```
+
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `PRIVATE_KEY` | Yes | Wallet private key with 0x prefix |
+| `ZORA_API_KEY` | Yes | Zora SDK API key ([get one here](https://zora.co/developers)) |
+| `PLATFORM_REFERRER` | No | Referrer address for fee rewards (20% of protocol fees) |
 
 ## Usage
 
